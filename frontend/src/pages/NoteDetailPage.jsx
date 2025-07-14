@@ -17,7 +17,9 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const res = await api.get(`/notes/${id}`);
+        const res = await api.get(`/notes/${id}`, {
+          withCredentials: true,
+        });
         setNote(res.data);
       } catch (error) {
         console.log("Error in fetching note", error);
@@ -34,7 +36,9 @@ const NoteDetailPage = () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      await api.delete(`/notes/${id}`);
+      await api.delete(`/notes/${id}`, {
+        withCredentials: true,
+      });
       toast.success("Note deleted");
       navigate("/");
     } catch (error) {
@@ -52,7 +56,9 @@ const NoteDetailPage = () => {
     setSaving(true);
 
     try {
-      await api.put(`/notes/${id}`, note);
+      await api.put(`/notes/${id}`, note, {
+        withCredentials: true,
+      });
       toast.success("Note updated successfully");
       navigate("/");
     } catch (error) {
@@ -80,7 +86,10 @@ const NoteDetailPage = () => {
               <ArrowLeftIcon className="h-5 w-5" />
               Back to Notes
             </Link>
-            <button onClick={handleDelete} className="btn btn-error btn-outline">
+            <button
+              onClick={handleDelete}
+              className="btn btn-error btn-outline"
+            >
               <Trash2Icon className="h-5 w-5" />
               Delete Note
             </button>
@@ -109,12 +118,18 @@ const NoteDetailPage = () => {
                   placeholder="Write your note here..."
                   className="textarea textarea-bordered h-32"
                   value={note.content}
-                  onChange={(e) => setNote({ ...note, content: e.target.value })}
+                  onChange={(e) =>
+                    setNote({ ...note, content: e.target.value })
+                  }
                 />
               </div>
 
               <div className="card-actions justify-end">
-                <button className="btn btn-primary" disabled={saving} onClick={handleSave}>
+                <button
+                  className="btn btn-primary"
+                  disabled={saving}
+                  onClick={handleSave}
+                >
                   {saving ? "Saving..." : "Save Changes"}
                 </button>
               </div>

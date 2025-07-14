@@ -15,7 +15,9 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await api.get("/notes");
+        const res = await api.get("/notes", {
+          withCredentials: true,
+        });
         console.log(res.data);
         setNotes(res.data);
         setIsRateLimited(false);
@@ -42,7 +44,9 @@ const HomePage = () => {
       {isRateLimited && <RateLimitedUI />}
 
       <div className="max-w-7xl mx-auto p-4 mt-6">
-        {loading && <div className="text-center text-primary py-10">Loading notes...</div>}
+        {loading && (
+          <div className="text-center text-primary py-10">Loading notes...</div>
+        )}
 
         {notes.length === 0 && !isRateLimited && <NotesNotFound />}
 

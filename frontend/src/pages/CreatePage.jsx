@@ -21,10 +21,16 @@ const CreatePage = () => {
 
     setLoading(true);
     try {
-      await api.post("/notes", {
-        title,
-        content,
-      });
+      await api.post(
+        "/notes",
+        {
+          title,
+          content,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       toast.success("Note created successfully!");
       navigate("/");
@@ -82,7 +88,11 @@ const CreatePage = () => {
                 </div>
 
                 <div className="card-actions justify-end">
-                  <button type="submit" className="btn btn-primary" disabled={loading}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading}
+                  >
                     {loading ? "Creating..." : "Create Note"}
                   </button>
                 </div>
