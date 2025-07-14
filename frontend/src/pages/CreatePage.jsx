@@ -7,12 +7,18 @@ import api from "../lib/axios";
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [tags, setTags] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const tagsArray = tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag !== "");
 
     if (!title.trim() || !content.trim()) {
       toast.error("All fields are required");
@@ -26,6 +32,7 @@ const CreatePage = () => {
         {
           title,
           content,
+          tags: tagsArray,
         },
         {
           withCredentials: true,
@@ -74,6 +81,20 @@ const CreatePage = () => {
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
+                {/*  */}
+                <div className="form-control mb-4">
+                  <label className="label">
+                    <span className="label-text">Tags</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Note Tags"
+                    className="input input-bordered"
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                  />
+                </div>
+                {/*  */}
 
                 <div className="form-control mb-4">
                   <label className="label">

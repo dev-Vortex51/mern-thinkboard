@@ -28,8 +28,13 @@ export async function getNoteById(req, res) {
 
 export async function createNote(req, res) {
   try {
-    const { title, content } = req.body;
-    const note = new Note({ title, content, user: req.user._id });
+    const { title, content, tags } = req.body;
+    const note = new Note({
+      title,
+      content,
+      tags: tags || [],
+      user: req.user._id,
+    });
 
     const savedNote = await note.save();
     return res.status(201).json(savedNote);
@@ -41,7 +46,7 @@ export async function createNote(req, res) {
 
 export async function updateNote(req, res) {
   try {
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
     const note = await Note.findOne({ _id: req.params.id, user: req.user._id });
 
     if (!note) {
@@ -53,6 +58,7 @@ export async function updateNote(req, res) {
     // Update the fields
     note.title = title ?? note.title;
     note.content = content ?? note.content;
+    note.tags = tags ?? note.tags;
 
     const updatedNote = await note.save();
 

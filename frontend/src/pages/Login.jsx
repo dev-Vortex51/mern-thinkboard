@@ -36,6 +36,9 @@ const Login = () => {
         <div className="max-w-md mx-auto">
           <div className="card bg-base-100">
             <div className="card-body">
+              <h1 className="text-3xl text-center font-bold text-primary font-mono tracking-tight">
+                ThinkBoard
+              </h1>
               <h2 className="card-title text-2xl mb-4 justify-center">
                 Welcome back, Login!
               </h2>

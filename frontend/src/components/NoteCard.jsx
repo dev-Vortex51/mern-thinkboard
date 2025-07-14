@@ -14,7 +14,7 @@ const NoteCard = ({ note, setNotes }) => {
       await api.delete(`/notes/${id}`, {
         withCredentials: true,
       });
-      setNotes((prev) => prev.filter((note) => note._id !== id)); // get rid of the deleted one
+      setNotes((prev) => prev.filter((note) => note._id !== id)); // remove deleted note
       toast.success("Note deleted successfully");
     } catch (error) {
       console.log("Error in handleDelete", error);
@@ -31,6 +31,22 @@ const NoteCard = ({ note, setNotes }) => {
       <div className="card-body">
         <h3 className="card-title text-base-content">{note.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{note.content}</p>
+
+        {/* 🔖 TAGS DISPLAY */}
+        {note.tags?.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3">
+            {note.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* 📅 DATE & ACTIONS */}
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">
             {formatDate(new Date(note.createdAt))}
@@ -49,4 +65,5 @@ const NoteCard = ({ note, setNotes }) => {
     </Link>
   );
 };
+
 export default NoteCard;

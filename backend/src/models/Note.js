@@ -13,6 +13,7 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    tags: [String],
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true } // createdAt, updatedAt

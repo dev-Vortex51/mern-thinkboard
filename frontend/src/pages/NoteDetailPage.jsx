@@ -110,6 +110,21 @@ const NoteDetailPage = () => {
                 />
               </div>
 
+              {/*  */}
+              <div className="form-control mb-4">
+                <label className="label">
+                  <span className="label-text">Tags</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Note Tags"
+                  className="input input-bordered"
+                  value={note.tags}
+                  onChange={(e) => setNote({ ...note, tags: e.target.value })}
+                />
+              </div>
+              {/*  */}
+
               <div className="form-control mb-4">
                 <label className="label">
                   <span className="label-text">Content</span>
