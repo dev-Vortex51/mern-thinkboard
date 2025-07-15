@@ -3,6 +3,7 @@ import { LogOut, PlusIcon, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
+import api from "../lib/axios";
 
 const Navbar = () => {
   const [user, setUser] = useState();
@@ -12,7 +13,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5001/api/auth/me", {
+        const { data } = await api.get("/auth/me", {
           withCredentials: true,
         });
         setUser(data);

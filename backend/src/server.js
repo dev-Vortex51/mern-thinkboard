@@ -19,7 +19,7 @@ const __dirname = path.resolve();
 if (process.env.NODE_ENV !== "production") {
   app.use(
     cors({
-      origin: "https://mern-thinkboard-jkez.onrender.com/",
+      origin: "http://localhost:5173",
       credentials: true,
     })
   );

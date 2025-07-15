@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router"; // ✅ FIXED
+import api from "../lib/axios";
 
 export const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5001/api/auth/me", {
+        const { data } = await api.get("/auth/me", {
           withCredentials: true,
         });
         setUser(data);
@@ -32,11 +32,11 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (credentials) => {
     try {
-      await axios.post("http://localhost:5001/api/auth/register", credentials, {
+      await api.post("/auth/register", credentials, {
         withCredentials: true,
       });
 
-      const { data } = await axios.get("http://localhost:5001/api/auth/me", {
+      const { data } = await api.get("/auth/me", {
         withCredentials: true,
       });
 
@@ -52,11 +52,11 @@ export const AuthProvider = ({ children }) => {
   // ✅ Login method
   const login = async (credentials) => {
     try {
-      await axios.post("http://localhost:5001/api/auth/login", credentials, {
+      await api.post("/auth/login", credentials, {
         withCredentials: true,
       });
 
-      const { data } = await axios.get("http://localhost:5001/api/auth/me", {
+      const { data } = await api.get("/auth/me", {
         withCredentials: true,
       });
 
@@ -72,11 +72,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ Logout method
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:5001/api/auth/logout",
-        {},
-        { withCredentials: true }
-      );
+      await api.post("/auth/logout", {}, { withCredentials: true });
       setUser(null);
       toast.success("Logged out");
       navigate("/login");
