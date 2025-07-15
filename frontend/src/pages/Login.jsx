@@ -39,7 +39,7 @@ const Login = () => {
               <h1 className="text-3xl text-center font-bold text-primary font-mono tracking-tight">
                 ThinkBoard
               </h1>
-              <h2 className="card-title text-2xl mb-4 justify-center">
+              <h2 className="card-title text-2xl mb-4 text-center justify-center">
                 Welcome back, Login!
               </h2>
 
